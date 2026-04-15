@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Systems 10 — Make Money Helping TikTok Brands Scale</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: '#7C3AED',
+            brandLight: '#8B5CF6',
+            brandDark: '#6D28D9',
+            surface: '#0F0F12',
+            card: '#18181B',
+            border: '#27272A',
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    html { scroll-behavior: smooth; }
+    body { background-color: #0F0F12; color: #F4F4F5; }
+
+    /* Gradient text */
+    .gradient-text {
+      background: linear-gradient(135deg, #A78BFA 0%, #7C3AED 50%, #C084FC 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Glow button */
+    .btn-primary {
+      background: linear-gradient(135deg, #7C3AED, #6D28D9);
+      box-shadow: 0 0 24px rgba(124, 58, 237, 0.4);
+      transition: all 0.2s ease;
+    }
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #8B5CF6, #7C3AED);
+      box-shadow: 0 0 36px rgba(124, 58, 237, 0.6);
+      transform: translateY(-1px);
+    }
+
+    /* Card glow on hover */
+    .card-hover {
+      transition: all 0.25s ease;
+      border: 1px solid #27272A;
+    }
+    .card-hover:hover {
+      border-color: #7C3AED;
+      box-shadow: 0 0 20px rgba(124, 58, 237, 0.15);
+      transform: translateY(-2px);
+    }
+
+    /* FAQ toggle */
+    .faq-answer {
+      display: none;
+    }
+    .faq-item.open .faq-answer {
+      display: block;
+    }
+    .faq-item.open .faq-icon {
+      transform: rotate(45deg);
+    }
+    .faq-icon {
+      transition: transform 0.2s ease;
+    }
+
+    /* Video wrapper */
+    .video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 12px;
+    }
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border: 0;
+    }
+
+    /* Noise overlay for hero */
+    .noise::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Pulse animation for dot */
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.7; transform: scale(1.2); }
+    }
+    .pulse-dot { animation: pulse-dot 2s ease-in-out infinite; }
+
+    /* Sticky nav shadow */
+    nav {
+      box-shadow: 0 1px 0 #27272A;
+    }
+
+    /* Gradient border cards */
+    .gradient-border {
+      position: relative;
+      background: #18181B;
+      border-radius: 12px;
+    }
+    .gradient-border::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      padding: 1px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #7C3AED33, #27272A, #7C3AED33);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body class="font-sans antialiased">
+
+  <!-- ============================================================
+       STICKY NAVBAR
+  ============================================================ -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-surface/90 backdrop-blur-md border-b border-border">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <div class="w-7 h-7 rounded-lg bg-brand flex items-center justify-center">
+          <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+          </svg>
+        </div>
+        <span class="font-bold text-lg text-white tracking-tight">Systems <span class="text-brand">10</span></span>
+      </div>
+      <a href="#cta" class="btn-primary px-5 py-2.5 rounded-lg text-white text-sm font-semibold">
+        Book a Call
+      </a>
+    </div>
+  </nav>
+
+  <!-- ============================================================
+       HERO SECTION
+  ============================================================ -->
+  <section class="relative pt-24 pb-16 lg:pt-32 lg:pb-24 overflow-hidden noise">
+    <!-- Background glow -->
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[500px] bg-brand/10 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 text-center">
+
+      <!-- Label badge -->
+      <div class="inline-flex items-center gap-2 bg-brand/10 border border-brand/30 text-brand text-xs font-semibold px-3 py-1.5 rounded-full mb-6">
+        <span class="pulse-dot w-1.5 h-1.5 rounded-full bg-brand block"></span>
+        TikTok Shop Revenue Scaling Program
+      </div>
+
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-[1.1] tracking-tight mb-5">
+        Make Money Online<br/>
+        <span class="gradient-text">Without Posting Content,<br/>Building an Audience,<br/>or Running Ads</span>
+      </h1>
+
+      <p class="text-zinc-400 text-lg leading-relaxed mb-8 max-w-2xl mx-auto">
+        Learn how to work with TikTok Shop brands already doing <strong class="text-white">$10K–$30K/month</strong> — and get paid based on performance.
+      </p>
+
+      <!-- VSL Video -->
+      <div class="relative mb-8">
+        <div class="absolute -inset-4 bg-brand/10 rounded-2xl blur-2xl pointer-events-none"></div>
+        <div class="relative bg-card rounded-2xl p-1 border border-border shadow-2xl">
+          <div class="video-wrapper">
+            <iframe
+              src="https://www.youtube.com/embed/dQw4w9WgXcQ?rel=0&modestbranding=1&color=white"
+              title="Systems 10 — Watch This First"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen>
+            </iframe>
+          </div>
+          <div class="px-4 py-3 flex items-center justify-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-green-400 block pulse-dot"></span>
+            <span class="text-zinc-400 text-sm">Watch this first — 12 min</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bullet points -->
+      <ul class="flex flex-wrap justify-center gap-x-8 gap-y-3 mb-8">
+        <li class="flex items-center gap-2 text-zinc-300 text-base">
+          <svg class="w-5 h-5 text-brand flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
+          </svg>
+          No content creation required
+        </li>
+        <li class="flex items-center gap-2 text-zinc-300 text-base">
+          <svg class="w-5 h-5 text-brand flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
+          </svg>
+          Zero ad spend needed
+        </li>
+        <li class="flex items-center gap-2 text-zinc-300 text-base">
+          <svg class="w-5 h-5 text-brand flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
+          </svg>
+          No prior experience needed
+        </li>
+        <li class="flex items-center gap-2 text-zinc-300 text-base">
+          <svg class="w-5 h-5 text-brand flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
+          </svg>
+          You get paid when brands grow
+        </li>
+      </ul>
+
+      <a href="#cta" class="btn-primary inline-flex items-center gap-2 px-7 py-4 rounded-xl text-white font-bold text-base">
+        Book a Free Strategy Call
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+        </svg>
+      </a>
+      <p class="text-zinc-500 text-xs mt-3">No pressure. If it's not a fit, we'll tell you upfront.</p>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SOCIAL PROOF BAR
+  ============================================================ -->
+  <div class="border-y border-border bg-card/50 py-5">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="flex flex-wrap items-center justify-center gap-8 text-zinc-400 text-sm">
+        <div class="flex items-center gap-2">
+          <svg class="w-4 h-4 text-brand" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <span><strong class="text-white">100+</strong> Brands Scaled</span>
+        </div>
+        <div class="w-px h-5 bg-border hidden sm:block"></div>
+        <div class="flex items-center gap-2">
+          <svg class="w-4 h-4 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          <span><strong class="text-white">$2M+</strong> GMV Generated</span>
+        </div>
+        <div class="w-px h-5 bg-border hidden sm:block"></div>
+        <div class="flex items-center gap-2">
+          <svg class="w-4 h-4 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          <span><strong class="text-white">200+</strong> Students Enrolled</span>
+        </div>
+        <div class="w-px h-5 bg-border hidden sm:block"></div>
+        <div class="flex items-center gap-2">
+          <svg class="w-4 h-4 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          <span><strong class="text-white">5–10%</strong> Revenue Share Model</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       PROBLEM SECTION
+  ============================================================ -->
+  <section class="py-20 lg:py-28">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 text-center">
+      <div class="inline-flex items-center gap-2 bg-red-500/10 border border-red-500/20 text-red-400 text-xs font-semibold px-3 py-1.5 rounded-full mb-6">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+        </svg>
+        The Problem
+      </div>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-white leading-tight mb-6">
+        Most people trying to make money online are doing it the hard way.
+      </h2>
+      <p class="text-zinc-400 text-lg leading-relaxed mb-4">
+        They're told to build an audience, go viral, or launch something from scratch.
+      </p>
+      <p class="text-zinc-400 text-lg leading-relaxed">
+        And they either <strong class="text-white">make nothing</strong> or <strong class="text-white">burn out trying</strong>.
+      </p>
+
+      <!-- Pain points grid -->
+      <div class="grid sm:grid-cols-3 gap-4 mt-10">
+        <div class="bg-card rounded-xl p-5 border border-border text-left">
+          <div class="text-red-400 mb-3">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.069A1 1 0 0121 8.87v6.26a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+          </div>
+          <p class="font-semibold text-white text-sm mb-1">Posting daily with no results</p>
+          <p class="text-zinc-500 text-xs">Months of effort with nothing to show for it</p>
+        </div>
+        <div class="bg-card rounded-xl p-5 border border-border text-left">
+          <div class="text-red-400 mb-3">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </div>
+          <p class="font-semibold text-white text-sm mb-1">Burning cash on ads</p>
+          <p class="text-zinc-500 text-xs">Spending money you don't have to make money you won't see</p>
+        </div>
+        <div class="bg-card rounded-xl p-5 border border-border text-left">
+          <div class="text-red-400 mb-3">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/></svg>
+          </div>
+          <p class="font-semibold text-white text-sm mb-1">Starting from scratch</p>
+          <p class="text-zinc-500 text-xs">Building an audience takes years — most people give up first</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       OPPORTUNITY SHIFT SECTION
+  ============================================================ -->
+  <section class="py-20 lg:py-28 relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-b from-brand/5 to-transparent pointer-events-none"></div>
+    <div class="relative max-w-4xl mx-auto px-4 sm:px-6">
+
+      <div class="text-center mb-12">
+        <div class="inline-flex items-center gap-2 bg-brand/10 border border-brand/30 text-brand text-xs font-semibold px-3 py-1.5 rounded-full mb-6">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+          </svg>
+          The Opportunity
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white leading-tight mb-4">Meanwhile…</h2>
+        <p class="text-zinc-400 text-lg leading-relaxed max-w-2xl mx-auto">
+          There are TikTok Shop brands already doing <strong class="text-white">$10K–$30K/month</strong>. They have products. They have demand. They have sales.
+        </p>
+        <p class="text-zinc-400 text-lg leading-relaxed max-w-2xl mx-auto mt-4">
+          But they don't know how to scale.
+        </p>
+      </div>
+
+      <!-- Before / After -->
+      <div class="grid sm:grid-cols-2 gap-4 mb-12">
+        <div class="bg-red-500/5 border border-red-500/20 rounded-xl p-6">
+          <p class="text-red-400 font-semibold text-sm mb-4 flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            Starting from Zero
+          </p>
+          <ul class="space-y-2 text-zinc-400 text-sm">
+            <li>Build an audience from scratch</li>
+            <li>Create content every day</li>
+            <li>Spend months before seeing income</li>
+            <li>Compete with millions of creators</li>
+          </ul>
+        </div>
+        <div class="bg-brand/5 border border-brand/30 rounded-xl p-6">
+          <p class="text-brand font-semibold text-sm mb-4 flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+            Stepping In as Operator
+          </p>
+          <ul class="space-y-2 text-zinc-300 text-sm">
+            <li>Work with brands already making money</li>
+            <li>Use proven systems — no content needed</li>
+            <li>Get paid based on what you produce</li>
+            <li>Scale as many brands as you want</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="text-center max-w-2xl mx-auto">
+        <p class="text-zinc-400 text-lg leading-relaxed">
+          Instead of starting from zero… you step into businesses that already exist.
+        </p>
+        <p class="text-white text-xl font-bold mt-4">
+          You don't become the creator. <span class="gradient-text">You become the operator.</span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       HOW IT WORKS — 3 STEPS
+  ============================================================ -->
+  <section class="py-20 lg:py-28" id="how-it-works">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="text-center mb-14">
+        <div class="inline-flex items-center gap-2 bg-brand/10 border border-brand/30 text-brand text-xs font-semibold px-3 py-1.5 rounded-full mb-4">How It Works</div>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white">3 Steps to Your First Deal</h2>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+
+        <!-- Step 1 -->
+        <div class="card-hover gradient-border bg-card rounded-xl p-7 text-center relative">
+          <div class="absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-brand flex items-center justify-center text-white font-bold text-sm shadow-lg">1</div>
+          <div class="w-14 h-14 rounded-2xl bg-brand/10 flex items-center justify-center mx-auto mb-5 mt-2">
+            <svg class="w-7 h-7 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+            </svg>
+          </div>
+          <h3 class="text-white font-bold text-lg mb-3">Find Brands</h3>
+          <p class="text-zinc-400 text-sm leading-relaxed">Identify TikTok Shop brands already generating revenue and ready to scale. We show you exactly where to look and what to look for.</p>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="card-hover gradient-border bg-card rounded-xl p-7 text-center relative">
+          <div class="absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-brand flex items-center justify-center text-white font-bold text-sm shadow-lg">2</div>
+          <div class="w-14 h-14 rounded-2xl bg-brand/10 flex items-center justify-center mx-auto mb-5 mt-2">
+            <svg class="w-7 h-7 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+            </svg>
+          </div>
+          <h3 class="text-white font-bold text-lg mb-3">Reach Out & Close</h3>
+          <p class="text-zinc-400 text-sm leading-relaxed">Land deals where you get paid based on performance. Use our proven outreach scripts and deal structures — no sales experience needed.</p>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="card-hover gradient-border bg-card rounded-xl p-7 text-center relative">
+          <div class="absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-brand flex items-center justify-center text-white font-bold text-sm shadow-lg">3</div>
+          <div class="w-14 h-14 rounded-2xl bg-brand/10 flex items-center justify-center mx-auto mb-5 mt-2">
+            <svg class="w-7 h-7 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>
+            </svg>
+          </div>
+          <h3 class="text-white font-bold text-lg mb-3">Scale with GMV Max</h3>
+          <p class="text-zinc-400 text-sm leading-relaxed">Use our proven systems to increase brand revenue. Earn <strong class="text-white">5–10%</strong> of everything you generate — the more they make, the more you make.</p>
+        </div>
+
+      </div>
+
+      <!-- Arrow connector (desktop) -->
+      <div class="hidden md:flex items-center justify-center gap-0 mt-8 pointer-events-none select-none">
+        <div class="w-1/3 border-t border-dashed border-zinc-700"></div>
+        <div class="mx-4 text-zinc-600">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </div>
+        <div class="w-1/3 border-t border-dashed border-zinc-700"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       PROOF SECTION
+  ============================================================ -->
+  <section class="py-20 lg:py-28 bg-card/30 border-y border-border">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="text-center mb-12">
+        <div class="inline-flex items-center gap-2 bg-green-500/10 border border-green-500/20 text-green-400 text-xs font-semibold px-3 py-1.5 rounded-full mb-4">Real Results</div>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Real Brands Are Already Doing This</h2>
+        <p class="text-zinc-400 mt-3 max-w-xl mx-auto">These are actual GMV numbers from brands inside the Systems 10 program.</p>
+      </div>
+
+      <!-- Proof Grid -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+
+        <!-- GMV Screenshot placeholder -->
+        <div class="card-hover bg-card rounded-xl border border-border overflow-hidden aspect-video flex flex-col items-center justify-center p-4">
+          <svg class="w-8 h-8 text-zinc-600 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+          <p class="text-zinc-500 text-xs text-center">GMV Dashboard</p>
+          <p class="text-brand text-sm font-bold mt-1">$47K / month</p>
+        </div>
+
+        <div class="card-hover bg-card rounded-xl border border-border overflow-hidden aspect-video flex flex-col items-center justify-center p-4">
+          <svg class="w-8 h-8 text-zinc-600 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+          <p class="text-zinc-500 text-xs text-center">ROI Chart</p>
+          <p class="text-green-400 text-sm font-bold mt-1">340% increase</p>
+        </div>
+
+        <div class="card-hover bg-card rounded-xl border border-border overflow-hidden aspect-video flex flex-col items-center justify-center p-4">
+          <svg class="w-8 h-8 text-zinc-600 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+          <p class="text-zinc-500 text-xs text-center">Analytics Report</p>
+          <p class="text-brand text-sm font-bold mt-1">$22K earned</p>
+        </div>
+
+        <div class="card-hover bg-card rounded-xl border border-border overflow-hidden aspect-video flex flex-col items-center justify-center p-4">
+          <svg class="w-8 h-8 text-zinc-600 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          <p class="text-zinc-500 text-xs text-center">Revenue Share</p>
+          <p class="text-green-400 text-sm font-bold mt-1">$3.4K commission</p>
+        </div>
+
+      </div>
+
+      <!-- Stats row -->
+      <div class="grid grid-cols-3 gap-4 max-w-2xl mx-auto mt-8">
+        <div class="text-center">
+          <p class="text-3xl font-extrabold gradient-text">$2M+</p>
+          <p class="text-zinc-500 text-sm mt-1">GMV Generated</p>
+        </div>
+        <div class="text-center border-x border-border">
+          <p class="text-3xl font-extrabold gradient-text">100+</p>
+          <p class="text-zinc-500 text-sm mt-1">Brands Scaled</p>
+        </div>
+        <div class="text-center">
+          <p class="text-3xl font-extrabold gradient-text">5–10%</p>
+          <p class="text-zinc-500 text-sm mt-1">Rev Share Model</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       WHAT YOU GET — FEATURE CARDS
+  ============================================================ -->
+  <section class="py-20 lg:py-28">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="text-center mb-12">
+        <div class="inline-flex items-center gap-2 bg-brand/10 border border-brand/30 text-brand text-xs font-semibold px-3 py-1.5 rounded-full mb-4">What's Inside</div>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Everything You Need to Land Your First Deal</h2>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+
+        <div class="card-hover bg-card rounded-xl p-6 border border-border">
+          <div class="w-10 h-10 rounded-xl bg-brand/15 flex items-center justify-center mb-4">
+            <svg class="w-5 h-5 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          </div>
+          <h3 class="text-white font-semibold mb-2">GMV Max Framework</h3>
+          <p class="text-zinc-400 text-sm leading-relaxed">Our core system for scaling TikTok Shop brands. Learn exactly how to drive revenue and earn 5–10% of everything you generate.</p>
+        </div>
+
+        <div class="card-hover bg-card rounded-xl p-6 border border-border">
+          <div class="w-10 h-10 rounded-xl bg-brand/15 flex items-center justify-center mb-4">
+            <svg class="w-5 h-5 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+          </div>
+          <h3 class="text-white font-semibold mb-2">Outreach & Closing Systems</h3>
+          <p class="text-zinc-400 text-sm leading-relaxed">Scripts, frameworks, and deal structures that get brands to say yes. No sales experience required.</p>
+        </div>
+
+        <div class="card-hover bg-card rounded-xl p-6 border border-border">
+          <div class="w-10 h-10 rounded-xl bg-brand/15 flex items-center justify-center mb-4">
+            <svg class="w-5 h-5 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+          </div>
+          <h3 class="text-white font-semibold mb-2">Plug-and-Play Templates</h3>
+          <p class="text-zinc-400 text-sm leading-relaxed">Funnels, outreach messages, and contracts — fully built so you can plug in and go from day one.</p>
+        </div>
+
+        <div class="card-hover bg-card rounded-xl p-6 border border-border">
+          <div class="w-10 h-10 rounded-xl bg-brand/15 flex items-center justify-center mb-4">
+            <svg class="w-5 h-5 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.069A1 1 0 0121 8.87v6.26a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+          </div>
+          <h3 class="text-white font-semibold mb-2">Loom Library</h3>
+          <p class="text-zinc-400 text-sm leading-relaxed">Step-by-step video breakdowns of real campaigns. Watch exactly how deals are structured and executed.</p>
+        </div>
+
+        <div class="card-hover bg-card rounded-xl p-6 border border-border sm:col-span-2 lg:col-span-1">
+          <div class="w-10 h-10 rounded-xl bg-brand/15 flex items-center justify-center mb-4">
+            <svg class="w-5 h-5 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+          </div>
+          <h3 class="text-white font-semibold mb-2">1-on-1 Support</h3>
+          <p class="text-zinc-400 text-sm leading-relaxed">Direct strategy calls and campaign reviews. We look at your specific situation and help you move fast.</p>
+        </div>
+
+        <!-- Bonus card -->
+        <div class="card-hover bg-gradient-to-br from-brand/20 to-brand/5 rounded-xl p-6 border border-brand/30">
+          <div class="w-10 h-10 rounded-xl bg-brand/30 flex items-center justify-center mb-4">
+            <svg class="w-5 h-5 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/></svg>
+          </div>
+          <div class="inline-block bg-brand/20 text-brand text-xs font-bold px-2 py-0.5 rounded mb-2">BONUS</div>
+          <h3 class="text-white font-semibold mb-2">Private Community Access</h3>
+          <p class="text-zinc-300 text-sm leading-relaxed">Join a network of operators doing the same thing. Share deals, get feedback, and grow together.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       WHO THIS IS FOR / NOT FOR
+  ============================================================ -->
+  <section class="py-20 lg:py-28 bg-card/30 border-y border-border">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Is This Right for You?</h2>
+      </div>
+
+      <div class="grid sm:grid-cols-2 gap-6">
+
+        <!-- FOR -->
+        <div class="bg-card rounded-2xl p-8 border border-green-500/20">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-9 h-9 rounded-full bg-green-500/15 flex items-center justify-center">
+              <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+            </div>
+            <h3 class="text-green-400 font-bold text-lg">This IS for you if…</h3>
+          </div>
+          <ul class="space-y-4">
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+              <span class="text-zinc-300 text-sm">You want online income without posting content or building an audience</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+              <span class="text-zinc-300 text-sm">You're willing to reach out to brands and do the work</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+              <span class="text-zinc-300 text-sm">You want performance-based income — the more brands grow, the more you earn</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+              <span class="text-zinc-300 text-sm">You're a beginner or feel stuck in other methods that aren't working</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- NOT FOR -->
+        <div class="bg-card rounded-2xl p-8 border border-red-500/20">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-9 h-9 rounded-full bg-red-500/15 flex items-center justify-center">
+              <svg class="w-5 h-5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg>
+            </div>
+            <h3 class="text-red-400 font-bold text-lg">This is NOT for you if…</h3>
+          </div>
+          <ul class="space-y-4">
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-red-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg>
+              <span class="text-zinc-400 text-sm">You're looking for completely passive income with zero effort</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-red-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg>
+              <span class="text-zinc-400 text-sm">You're not willing to put in the time or do outreach</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-red-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg>
+              <span class="text-zinc-400 text-sm">You're unwilling to communicate with brands or show up professionally</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-red-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg>
+              <span class="text-zinc-400 text-sm">You expect results without following the system</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       OBJECTION HANDLING — FAQ
+  ============================================================ -->
+  <section class="py-20 lg:py-28">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6">
+      <div class="text-center mb-12">
+        <div class="inline-flex items-center gap-2 bg-brand/10 border border-brand/30 text-brand text-xs font-semibold px-3 py-1.5 rounded-full mb-4">Common Questions</div>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Objections, Answered</h2>
+      </div>
+
+      <div class="space-y-3" id="faq">
+
+        <div class="faq-item bg-card rounded-xl border border-border overflow-hidden cursor-pointer" onclick="toggleFaq(this)">
+          <div class="flex items-center justify-between px-6 py-5">
+            <span class="text-white font-medium text-sm sm:text-base">"I don't have any experience."</span>
+            <svg class="faq-icon w-5 h-5 text-zinc-400 flex-shrink-0 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+          </div>
+          <div class="faq-answer px-6 pb-5">
+            <p class="text-zinc-400 text-sm leading-relaxed border-t border-border pt-4">That's exactly why the program exists. You get step-by-step systems, scripts, templates, and 1-on-1 support. You don't need experience — you need a proven process, and that's what we give you.</p>
+          </div>
+        </div>
+
+        <div class="faq-item bg-card rounded-xl border border-border overflow-hidden cursor-pointer" onclick="toggleFaq(this)">
+          <div class="flex items-center justify-between px-6 py-5">
+            <span class="text-white font-medium text-sm sm:text-base">"I don't have money to invest."</span>
+            <svg class="faq-icon w-5 h-5 text-zinc-400 flex-shrink-0 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+          </div>
+          <div class="faq-answer px-6 pb-5">
+            <p class="text-zinc-400 text-sm leading-relaxed border-t border-border pt-4">No ad spend is required in this model. You're helping brands that already have revenue — not running campaigns yourself. You bring the system, they bring the products. That's the deal.</p>
+          </div>
+        </div>
+
+        <div class="faq-item bg-card rounded-xl border border-border overflow-hidden cursor-pointer" onclick="toggleFaq(this)">
+          <div class="flex items-center justify-between px-6 py-5">
+            <span class="text-white font-medium text-sm sm:text-base">"I don't have an audience or following."</span>
+            <svg class="faq-icon w-5 h-5 text-zinc-400 flex-shrink-0 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+          </div>
+          <div class="faq-answer px-6 pb-5">
+            <p class="text-zinc-400 text-sm leading-relaxed border-t border-border pt-4">You're not the creator — you're the operator. Your job isn't to post or go viral. It's to run the backend strategy for brands that already have products and customers. You never need followers for this.</p>
+          </div>
+        </div>
+
+        <div class="faq-item bg-card rounded-xl border border-border overflow-hidden cursor-pointer" onclick="toggleFaq(this)">
+          <div class="flex items-center justify-between px-6 py-5">
+            <span class="text-white font-medium text-sm sm:text-base">"How long before I see results?"</span>
+            <svg class="faq-icon w-5 h-5 text-zinc-400 flex-shrink-0 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+          </div>
+          <div class="faq-answer px-6 pb-5">
+            <p class="text-zinc-400 text-sm leading-relaxed border-t border-border pt-4">Most students land their first brand deal within the first few weeks of following the outreach system. Results depend on effort and consistency — but you're working with live businesses, not building from scratch, so the timeline is dramatically shorter.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FINAL CTA SECTION
+  ============================================================ -->
+  <section id="cta" class="py-24 lg:py-32 relative overflow-hidden">
+    <!-- Background glow -->
+    <div class="absolute inset-0 bg-gradient-to-b from-brand/10 via-brand/5 to-transparent pointer-events-none"></div>
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-brand/10 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="relative max-w-2xl mx-auto px-4 sm:px-6 text-center">
+      <div class="inline-flex items-center gap-2 bg-brand/10 border border-brand/30 text-brand text-xs font-semibold px-3 py-1.5 rounded-full mb-6">
+        <span class="pulse-dot w-1.5 h-1.5 rounded-full bg-brand block"></span>
+        Limited Spots Available
+      </div>
+
+      <h2 class="text-4xl sm:text-5xl font-extrabold text-white leading-tight mb-6">
+        If this makes sense to you…
+      </h2>
+
+      <p class="text-zinc-300 text-xl leading-relaxed mb-4">
+        Book a call and we'll look at your situation.
+      </p>
+      <p class="text-zinc-400 text-lg leading-relaxed mb-10">
+        If it's not a fit, we'll tell you. If it is, we'll show you exactly how to get started.
+      </p>
+
+      <a href="#" class="btn-primary inline-flex items-center gap-3 px-10 py-5 rounded-xl text-white font-bold text-lg">
+        Book Your Free Strategy Call
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+        </svg>
+      </a>
+
+      <p class="text-zinc-500 text-sm mt-4">No fluff. No pressure. Just a real conversation.</p>
+
+      <!-- Trust signals -->
+      <div class="flex items-center justify-center gap-6 mt-10 flex-wrap">
+        <div class="flex items-center gap-2 text-zinc-500 text-xs">
+          <svg class="w-4 h-4 text-zinc-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+          No obligation
+        </div>
+        <div class="flex items-center gap-2 text-zinc-500 text-xs">
+          <svg class="w-4 h-4 text-zinc-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          30 min call
+        </div>
+        <div class="flex items-center gap-2 text-zinc-500 text-xs">
+          <svg class="w-4 h-4 text-zinc-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+          1-on-1 with the team
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FOOTER
+  ============================================================ -->
+  <footer class="border-t border-border py-8">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2">
+        <div class="w-6 h-6 rounded-md bg-brand flex items-center justify-center">
+          <svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+        </div>
+        <span class="font-bold text-sm text-white">Systems <span class="text-brand">10</span></span>
+      </div>
+      <p class="text-zinc-600 text-xs text-center">
+        © 2025 Systems 10. All rights reserved. Results are not guaranteed and may vary.
+      </p>
+      <div class="flex items-center gap-4 text-zinc-600 text-xs">
+        <a href="#" class="hover:text-zinc-400 transition-colors">Privacy</a>
+        <a href="#" class="hover:text-zinc-400 transition-colors">Terms</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // FAQ Toggle
+    function toggleFaq(el) {
+      const isOpen = el.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(item => item.classList.remove('open'));
+      if (!isOpen) el.classList.add('open');
+    }
+
+    // Navbar scroll effect
+    const nav = document.querySelector('nav');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 20) {
+        nav.classList.add('bg-surface');
+        nav.classList.remove('bg-surface/90');
+      } else {
+        nav.classList.remove('bg-surface');
+        nav.classList.add('bg-surface/90');
+      }
+    });
+  </script>
+</body>
+</html>
